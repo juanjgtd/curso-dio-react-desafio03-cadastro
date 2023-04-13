@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Pablo",
+      "email": "pablo@email.com",
+      "senha": "123456"
+    },
+    {
+      "id": 2,
+      "name": "José",
+      "email": "jose@email.com",
+      "senha": "123456"
+    },
+    {
+      "id": 3,
+      "name": "Juan Daniel Bezerra Jorge",
+      "email": "um.quase.eu@gmail.com",
+      "senha": "1234"
+    },
+    {
+      "id": 4,
+      "name": "Juan 2",
+      "email": "nome@nome.com",
+      "senha": "1234"
+    },
+    {
+      "id": 5,
+      "name": "Juan3",
+      "email": "juan3@gmail.com",
+      "senha": "123"
+    }
+  ]
+}
