@@ -1,4 +1,5 @@
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { MdEmail, MdLock } from 'react-icons/md'
 import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
@@ -11,6 +12,17 @@ import { useForm } from "react-hook-form";
 import { Container, Title, Column, TitleLogin, SubtitleLogin, EsqueciText, CriarText, Row, Wrapper } from './styles';
 
 const Login = () => {
+
+    const initialValues = {
+        email: '',
+        senha: ''};
+    
+    const [values, setValues] = useState(initialValues);
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setValues({ ...values, [name]: value });
+      };
 
     const navigate = useNavigate()
 
@@ -32,7 +44,7 @@ const Login = () => {
 
             alert('Usuário ou senha inválido')
         }catch(e){
-            //TODO: HOUVE UM ERRO
+            alert('Problemas com o nosso servidor, contacte seu administrador de banco de dados!')
         }
     };
 
@@ -50,9 +62,22 @@ const Login = () => {
                 <TitleLogin>Faça seu login</TitleLogin>
                 <SubtitleLogin>Faça seu login e make the change._</SubtitleLogin>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Input placeholder="E-mail" leftIcon={<MdEmail />} name="email"  control={control} />
+                    <Input 
+                        placeholder="E-mail"
+                        leftIcon={<MdEmail />} 
+                        name="email"  
+                        control={control} 
+                        onChange={handleInputChange}
+                        value={values.email}/>
                     {errors.email && <span>E-mail é obrigatório</span>}
-                    <Input type="password" placeholder="Senha" leftIcon={<MdLock />}  name="senha" control={control} />
+                    <Input 
+                        type="password" 
+                        placeholder="Senha" 
+                        leftIcon={<MdLock />}  
+                        name="senha" 
+                        control={control} 
+                        onChange={handleInputChange}
+                        value={values.senha}/>
                     {errors.senha && <span>Senha é obrigatório</span>}
                     <Button title="Entrar" variant="secondary" type="submit"/>
                 </form>

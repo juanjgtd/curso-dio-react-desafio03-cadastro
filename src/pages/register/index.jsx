@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -34,9 +35,25 @@ const schema = yup.object({
 
 const Register = () => {
     
+    const initialValues = {
+        name: '',
+        email: '',
+        password: ''}
+    
+    const [values, setValues] = useState(initialValues);
+    
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setValues({ ...values, [name]: value });
+      };
+
+      const handleReset = () => {
+        setValues(initialValues);
+      };
+
     const navigate = useNavigate();
 
-    const { control, handleSubmit, reset, formState: { errors  } } = useForm({
+    const { control, handleSubmit, formState: { errors  } } = useForm({
         resolver: yupResolver(schema)
     });
 
@@ -47,6 +64,7 @@ const Register = () => {
             
             if(data.length && data[0].id){
                 alert('Usuário já cadastrado!');
+                handleReset();
                 return
             }
 
@@ -74,7 +92,7 @@ const Register = () => {
             
            
         }catch(e){
-            
+            alert('Problemas com o nosso servidor, contacte seu administrador de banco de dados!')
         }
     };
 
@@ -99,20 +117,26 @@ const Register = () => {
                         placeholder="Nome completo" 
                         leftIcon={<FaUserAlt />} 
                         name="name"  
-                        control={control} />
+                        control={control} 
+                        onChange={handleInputChange}
+                        value={values.name}/>
                     {errors.name?.message}
                     <Input 
                         placeholder="E-mail" 
                         leftIcon={<MdEmail />} 
                         name="email"  
-                        control={control} />
+                        control={control} 
+                        onChange={handleInputChange}
+                        value={values.email}/>
                     {errors.email?.message}
                     <Input 
                         type="password" 
                         placeholder="Password" 
                         leftIcon={<MdLock />}  
                         name="password" 
-                        control={control} />
+                        control={control} 
+                        onChange={handleInputChange}
+                        value={values.password}/>
                     {errors.password?.message}
                     <Button title="Criar minha conta" 
                             variant="secondary" 
